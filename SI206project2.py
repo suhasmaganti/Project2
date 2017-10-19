@@ -45,10 +45,14 @@ def grab_headlines():
     html = urllib.request.urlopen(url).read()
     soup = BeautifulSoup(html, 'html.parser')
 
-    tags = soup.prettify()
-    print(tags)
-    #for tag in tags:
-    #	return tag
+    divs = soup.find_all('div', {'class':'panel-pane pane-mostread'})
+    links = divs[0].find_all('a')
+    headlines = []
+
+    for i in links:
+    	headlines.append(i.text)
+
+    return headlines
 
 ## PART 3 (a) Define a function called get_umsi_data.  It should create a dictionary
 ## saved in a variable umsi_titles whose keys are UMSI people's names, and whose 
@@ -62,8 +66,10 @@ def grab_headlines():
 ## requests.get(base_url, headers={'User-Agent': 'SI_CLASS'}) 
 
 def get_umsi_data():
-    pass
     #Your code here
+    umsi_titles = {}
+
+    return umsi_titles
 
 ## PART 3 (b) Define a function called num_students.  
 ## INPUT: The dictionary from get_umsi_data().
@@ -100,7 +106,7 @@ def main():
 
     print('\n\nTask 2: Michigan Daily')
     #total += test(grab_headlines(),["MSW students protest staff member's email based on religious bias", 'Teen arrested at Blake Transit Center', "Racist flyers calling to 'Make America White Again' found near Stockwell", "Protesters take to LSA SG panel on C.C. Little's renaming", 'Michigan football player Nate Johnson arrested for domestic violence'],50)
-    total += test(grab_headlines(),["Students attempt to shut down speech by controversial social scientist Charles Murray", "Orion Sang: Michigan should see what it has with Peters", "Protesters grapple with Charles Murray's appearance on campus", "'Lil Pump' delivers hype despite a lack of substance", "'Jane the Virgin' becomes Adam the Virgo in season 4 shift"],50)
+    total += test(grab_headlines(),["Students attempt to shut down speech by controversial social scientist Charles Murray ", "Orion Sang: Michigan should see what it has with Peters", "Protesters grapple with Charles Murray's appearance on campus", "'Lil Pump' delivers hype despite a lack of substance", "'Jane the Virgin' becomes Adam the Virgo in season 4 shift"],50)
 
 
     """print('\n\nTask 3: UMSI Directory')
